@@ -12,12 +12,7 @@ router.get('/', async (req,res)=>{
     }
 })
 
-// GET ONE QUESTION
-router.get('/:id', (res,req)=>{
-
-})
-
-//CREATE ONE 
+//CREATE ONE
 router.post('/', async (req,res)=>{
     const question = new Question(
         req.body
@@ -28,16 +23,6 @@ router.post('/', async (req,res)=>{
     }catch(err){
         res.status(400).send({message: err.message})
     }
-})
-
-//UPDATE ONE 
-router.patch('/:id', (res,req)=>{
-    
-})
-
-//DELETE ONE 
-router.post('/:id', (res,req)=>{
-    
 })
 
 module.exports = router;
