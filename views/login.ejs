@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    
+  </head>
+
+
+  <body>
+    <div class="container">
+      <h1>Είσοδος Διαχειριστή</h1>
+      <% if (myError) { %>
+        <p style="color:red;"><%= myError %></p>
+      <% } %>
+    <form id="login-admin" action="/login" method="post" autocomplete="off">
+      <div class="form-group">
+        <label for="user_name">Όνομα:</label>
+        <input type="text" class="form-control" id="user_name" name="user_name" required>
+      </div>
+      <div class="form-group">
+        <label for="user_pwd">Κωδικός:</label>
+        <input type="password" class="form-control" id="user_pwd" name="user_pwd" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Σύνδεση</button>
+
+    </form>
+  </div>
+    
+  </body>
+  <script>
+    // Wait for the page to finish loading
+    window.addEventListener('load', () => {
+      // Check if there are any query parameters in the URL
+      if (window.location.search) {
+        // Remove the query parameters from the URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    });
+  </script>
+  
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Add new question</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/0b84a3b54d.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    
+  </head>
+
+
+  <body>
+    <nav class="navbar bg-primary" data-bs-theme="dark">
+      <div class="container-fluid">
+        <a class="navbar-brand">Quiz Γεωγραφίας</a>   
+        <form action="/add/resetScores" method="get">
+          <button type="submit" class="btn btn-danger">Reset Scores</button>
+        </form>   
+        <form action="/login/logout" method="post">
+          <button type="submit" class="btn btn-light"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+        </form>      
+      </div>
+    </nav>
+    <div class="container">
+      <h1>Προσθήκη νέας ερώτησης</h1>
+      <% if (myError) { %>
+        <p style="color:red;"><%= myError %></p>
+      <% } %>
+    <form id="add-question-form" action="/add" method="post" autocomplete="off">
+      <div class="form-group">
+        <label for="question">Ερώτηση:</label>
+        <input type="text" class="form-control" id="question" name="question" required>
+      </div>
+      <div class="form-group">
+        <label for="answer">Σωστή απάντηση:</label>
+        <input type="text" class="form-control" id="answer" name="answer" required>
+      </div>
+      <div class="form-group">
+        <label for="false1">Λάθος 1:</label>
+        <input type="text" class="form-control" id="false1" name="false1" required>
+      </div>
+      <div class="form-group">
+        <label for="false2">Λάθος 2:</label>
+        <input type="text" class="form-control" id="false2" name="false2" required>
+      </div>
+      <div class="form-group">
+        <label for="false3">Λάθος 3:</label>
+        <input type="text" class="form-control" id="false3" name="false3" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Προσθήκη</button>
+
+    </form>
+  </div>
+    
+  </body>
+
+  <script>
+    // Wait for the page to finish loading
+    window.addEventListener('load', () => {
+      // Check if there are any query parameters in the URL
+      if (window.location.search) {
+        // Remove the query parameters from the URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    });
+  </script>
+  
+</html>

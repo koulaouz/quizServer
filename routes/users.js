@@ -17,6 +17,7 @@ router.get('/', async (req,res)=>{
 router.post('/', async (req,res) => {
     const user = new User({
         user_id: req.body.user_id,
+        user_name: req.body.user_name,
         user_score: req.body.user_score        
     })
     try{
@@ -27,6 +28,7 @@ router.post('/', async (req,res) => {
     }
 })
 
+// Search if player exists in the database
 router.post('/search', (req,res) => {
     const this_user_id = req.body.user_id;
 
@@ -53,5 +55,28 @@ router.post('/update', async (req,res) => {
         }
     })
 })
+
+// Get the leaderboard information along with current player's position
+router.post('/leaderboard', async (req, res) => {
+    // ===============
+    // TO DO LATER
+    // save the top players on a mongo table after every event to reduce server load
+    // or let the player access this route once after every event and save that info in an SQLite table
+    // ===============
+    const topUsers = await  User.find().sort({user_score : -1});
+    let pos = -1;
+    for (let i=0; i< topUsers.length; i++){
+        if (topUsers[i].user_score == req.body.playerScore){
+            pos = i;
+            break;
+        }
+    }
+    const top10Users = topUsers.slice(0,10);
+    // Add the current player's position to the response
+    const response = { top10_users: top10Users, currentPosition: pos + 1};
+
+    res.json(response);
+
+  });
 
 module.exports = router;

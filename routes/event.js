@@ -18,11 +18,12 @@ const Event = mongoose.model("Event", eventSchema)
 
 //creates a collection of questions in the db
 function createEvent(){
-    Question.aggregate([{$sample:{size:2}}], function(err,questions){
+    console.log('event triggered')
+    Question.aggregate([{$sample:{size:6}}], function(err,questions){
         questions.forEach(function (question){
             let event = new Event({
                 question: question.question,
-                answer: question.answerl,
+                answer: question.answer,
                 false1: question.false1,
                 false2: question.false2,
                 false3: question.false3
@@ -35,14 +36,19 @@ function createEvent(){
 
 //deletes the collection of questions from the db
 function deleteEvent(){
+    console.log('event list dropped')
     Event.collection.drop();
 }
 
-const job_create_list = new cron.CronJob("54 19 * * *", createEvent);
-job_create_list.start()
+// const job_create_list = new cron.CronJob("*/5 * * * *", createEvent);
+// job_create_list.start()
 
-//const job_delete_list = new cron.CronJob("8 19 * * *", deleteEvent)
-//job_delete_list.start();
+// const job_delete_list = new cron.CronJob("*/4 * * * *", deleteEvent)
+// job_delete_list.start();
+router.get('/demo', (req,res) => {
+    deleteEvent()
+    createEvent()
+})
 
 // GET ALL QUESTIONS FROM EVENT DB
 router.get('/', async (req,res)=>{
